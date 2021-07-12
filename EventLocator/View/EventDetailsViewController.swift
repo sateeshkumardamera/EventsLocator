@@ -27,6 +27,7 @@ class EventDetailsViewController: UIViewController {
     @IBOutlet weak var eventDate: UILabel!
     @IBOutlet weak var eventLocation: UILabel!
     @IBOutlet var eventImage: UIImageView!
+    @IBOutlet var favIcon: UIButton!
     
     var event:Event? = nil
     
@@ -41,10 +42,26 @@ class EventDetailsViewController: UIViewController {
                 eventImage.load(url: URL.init(string: imagePath)!)
             }
 
+            if(selectedEvent.isFavorite()){
+                favIcon.setBackgroundImage(UIImage(named: "heart.png"), for: .normal)
+            }else{
+                favIcon.setBackgroundImage(UIImage(named: "not-favorite.png"), for: .normal)
+            }
         }
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func markOrUnmarkAsFavorite(_ sender: UIButton) {
+        if let selectedEvent = self.event{
+            if(selectedEvent.isFavorite()){
+                selectedEvent.removeFavorite()
+                favIcon.setBackgroundImage(UIImage(named: "not-favorite.png"), for: .normal)
+            }else{
+                selectedEvent.setFavorite()
+                favIcon.setBackgroundImage(UIImage(named: "heart.png"), for: .normal)
+            }
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationItem.title = "Details"

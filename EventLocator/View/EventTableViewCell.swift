@@ -14,6 +14,7 @@ class EventTableViewCell: UITableViewCell {
     @IBOutlet var eventLocation: UILabel!
     @IBOutlet var eventImage: UIImageView!
     @IBOutlet var innerView: UIView!
+    @IBOutlet var favIcon: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

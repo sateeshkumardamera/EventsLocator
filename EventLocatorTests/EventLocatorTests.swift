@@ -18,9 +18,13 @@ class EventLocatorTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testInitEventsTableView() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let eventsViewController = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        _ = eventsViewController.view
+        XCTAssertNotNil(eventsViewController.eventsTable)
     }
 
     func testPerformanceExample() throws {

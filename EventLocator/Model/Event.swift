@@ -2,7 +2,7 @@
 //  EventBaseModel.swift
 //  EventsList
 //
-//  Created by Sateesh Damera on 7/10/21.
+//  Created by Sateesh Damera on 7/12/21.
 //
 import Foundation
 
@@ -56,5 +56,24 @@ struct Event : Codable {
         let timeStamp = dateFormatter.string(from: dateTime)
 
         return timeStamp
+    }
+    func setFavorite(){
+        let defaults = UserDefaults.standard
+        var myFavorites = defaults.stringArray(forKey: "Favorites") ?? [String]()
+        myFavorites.append(String(describing: self.id))
+        defaults.set(myFavorites, forKey: "Favorites")
+    }
+    func removeFavorite(){
+        let defaults = UserDefaults.standard
+        var myFavorites = defaults.stringArray(forKey: "Favorites") ?? [String]()
+        if let index = myFavorites.firstIndex(of: String(describing: self.id)){
+            myFavorites.remove(at: index)
+        }
+        defaults.set(myFavorites, forKey: "Favorites")
+    }
+    func isFavorite() -> Bool {
+        let defaults = UserDefaults.standard
+        let myFavorites = defaults.stringArray(forKey: "Favorites") ?? [String]()
+        return myFavorites.contains(String(describing: self.id))
     }
 }

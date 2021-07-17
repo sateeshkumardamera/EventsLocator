@@ -49,7 +49,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
             cell.titile.text = filteredEvents[indexPath.row].title
             cell.eventDate.text = filteredEvents[indexPath.row].getLocalDate()
             cell.eventLocation.text = filteredEvents[indexPath.row].venue?.display_location
-            
+            if(filteredEvents[indexPath.row].isFavorite()){
+                cell.favIcon.isHidden = false
+            }else{
+                cell.favIcon.isHidden = true
+            }
             if let imagePath = filteredEvents[indexPath.row].performers?[0].image{
                 presenter.getImageForRow(indexPath: indexPath, imagePath: imagePath)
             }
@@ -58,7 +62,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
             cell.titile.text = events[indexPath.row].title
             cell.eventDate.text = events[indexPath.row].getLocalDate()
             cell.eventLocation.text = events[indexPath.row].venue?.display_location
-            
+            if(events[indexPath.row].isFavorite()){
+                cell.favIcon.isHidden = false
+            }else{
+                cell.favIcon.isHidden = true
+            }
             if let imagePath = events[indexPath.row].performers?[0].image{
                 presenter.getImageForRow(indexPath: indexPath, imagePath: imagePath)
             }
@@ -129,6 +137,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.eventsTable.reloadData()
     }
 }
 
